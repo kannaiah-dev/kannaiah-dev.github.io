@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KK â€” Digital Portfolio | Virtual Assistant & Creative Technologist</title>
+  <meta name="description" content="Portfolio of Kannaiah (KK) â€” Slide Designing, Web & App Development using AI, Video Editing, Automation and Creative Production." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       CSS RESET & DESIGN TOKENS
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --gold: #FFA800;
+      --gold-light: #FFC043;
+      --gold-glow: rgba(255, 168, 0, 0.45);
+      --gold-subtle: rgba(255, 168, 0, 0.12);
+      --bg-deep: #060608;
+      --bg-surface: #101014;
+      --white: #FFFFFF;
+      --text-muted: #A0A5B5;
+      --glass-bg: rgba(14, 14, 18, 0.78);
+      --glass-border: rgba(255, 168, 0, 0.22);
+      --font-display: 'Anton', sans-serif;
+      --font-body: 'Plus Jakarta Sans', 'Poppins', sans-serif;
+      --nav-height: 64px;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-deep);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Ambient dynamic glow in background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -20%;
+      left: 20%;
+      width: 60vw;
+      height: 60vh;
+      background: radial-gradient(circle, rgba(255, 168, 0, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ==========================================================================
+       GLOBAL TOP PROGRESS BAR
+       ========================================================================== */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), #FFE082, var(--gold));
+      box-shadow: 0 0 10px var(--gold-glow);
+      z-index: 2000;
+      transition: width 0.15s ease-out;
+    }
+
+    /* ==========================================================================
+       GLASSMORPHIC TOP NAVIGATION
+       ========================================================================== */
+    header.top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1rem, 3vw, 2.5rem);
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--gold), #CC8400);
+      color: #000;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9px;
+      box-shadow: 0 4px 14px var(--gold-glow);
+      letter-spacing: 0.05em;
+    }
+
+    .brand-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+
+    .brand-subtitle {
+      font-size: 0.7rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Navigation links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.75rem, 1.8vw, 1.75rem);
+      list-style: none;
+    }
+
+    .nav-link-item a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      display: inline-block;
+    }
+
+    .nav-link-item a:hover {
+      color: var(--white);
+      background: var(--gold-subtle);
+    }
+
+    .nav-link-item a.active {
+      color: var(--gold);
+      background: rgba(255, 168, 0, 0.15);
+      border: 1px solid rgba(255, 168, 0, 0.3);
+    }
+
+    /* Top Right Controls */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-counter-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--white);
+    }
+
+    .slide-counter-badge .curr {
+      color: var(--gold);
+      font-size: 0.95rem;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--white);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: var(--font-body);
+    }
+
+    .nav-btn:hover {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+      box-shadow: 0 4px 12px var(--gold-glow);
+    }
+
+    .nav-btn svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    /* ==========================================================================
+       SCROLL CONTAINER & SLIDE SECTIONS
+       ========================================================================== */
+    #slides-wrapper {
+      width: 100vw;
+      height: 100vh;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide-section {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      position: relative;
+      padding: calc(var(--nav-height) + 12px) 24px 20px;
+      box-sizing: border-box;
+    }
+
+    /* Cinematic 16:9 Presentation Canvas */
+    .slide-canvas {
+      position: relative;
+      width: 100%;
+      /* Preserve exact 16:9 ratio while maximizing screen coverage within viewport */
+      max-width: min(calc((100vh - var(--nav-height) - 40px) * (16 / 9)), 95vw);
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 
+        0 24px 50px -12px rgba(0, 0, 0, 0.95),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 0 40px rgba(255, 168, 0, 0.08);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .slide-canvas:hover {
+      box-shadow: 
+        0 28px 60px -10px rgba(0, 0, 0, 0.98),
+        0 0 0 1px rgba(255, 168, 0, 0.28),
+        0 0 45px rgba(255, 168, 0, 0.15);
+    }
+
+    .slide-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Slide number watermark on hover */
+    .slide-canvas-tag {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      opacity: 0.6;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 10;
+    }
+
+    .slide-canvas:hover .slide-canvas-tag {
+      opacity: 1;
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    /* ==========================================================================
+       INTERACTIVE VIDEO OVERLAYS (SLIDES 5, 6, 16)
+       ========================================================================== */
+    .video-overlay-wrap {
+      position: absolute;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 168, 0, 0.2);
+      z-index: 15;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .video-overlay-wrap:hover {
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.9), 0 0 0 2px var(--gold);
+    }
+
+    .video-overlay-wrap video,
+    .video-overlay-wrap .yt-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    /* Custom play badge that fades out once video starts */
+    .video-play-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 54px;
+      height: 54px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      pointer-events: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 0 25px var(--gold-glow);
+      z-index: 20;
+    }
+
+    .video-play-badge svg {
+      width: 24px;
+      height: 24px;
+      margin-left: 3px;
+      fill: var(--gold);
+    }
+
+    .video-overlay-wrap.playing .video-play-badge {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, -50%) scale(0.7);
+    }
+
+    .video-overlay-wrap:hover:not(.playing) .video-play-badge {
+      transform: translate(-50%, -50%) scale(1.1);
+      background: var(--gold);
+      color: #000;
+    }
+
+    .video-overlay-wrap:hover:not(.playing) .video-play-badge svg {
+      fill: #000;
+    }
+
+    /* Video Tag Pill */
+    .video-title-pill {
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(255, 168, 0, 0.4);
+      color: #FFF;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      pointer-events: none;
+      z-index: 21;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .video-title-pill span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 6px var(--gold);
+    }
+
+    /* Coordinates extracted from OpenXML EMUs: */
+    /* Slide 5 - Video 1 (Mobile App Demo) */
+    #s5-v1 {
+      left: 3.38%;
+      top: 18.38%;
+      width: 20.65%;
+      height: 71.62%;
+    }
+
+    /* Slide 5 - Video 2 (Web Dashboard Demo) */
+    #s5-v2 {
+      left: 27.01%;
+      top: 21.07%;
+      width: 69.80%;
+      height: 57.86%;
+    }
+
+    /* Slide 6 - Startup Video Production */
+    #s6-v1 {
+      left: 9.73%;
+      top: 20.73%;
+      width: 76.47%;
+      height: 76.47%;
+    }
+
+    /* Slide 16 - Video Editing Demo */
+    #s16-v1 {
+      left: 12.70%;
+      top: 20.17%;
+      width: 73.56%;
+      height: 72.96%;
+    }
+
+    /* ==========================================================================
+       SLIDE 18 â€” INTERACTIVE CONTACT HOTSPOTS
+       ========================================================================== */
+    .contact-hotspot {
+      position: absolute;
+      text-decoration: none;
+      border-radius: 8px;
+      background: rgba(255, 168, 0, 0.0);
+      border: 1.5px solid transparent;
+      transition: all 0.25s ease;
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 14px;
+      cursor: pointer;
+    }
+
+    .contact-hotspot:hover {
+      background: rgba(255, 168, 0, 0.16);
+      border-color: var(--gold);
+      box-shadow: 0 0 20px rgba(255, 168, 0, 0.35);
+    }
+
+    .contact-hotspot .hotspot-cue {
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: all 0.2s ease;
+      background: var(--gold);
+      color: #000;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .contact-hotspot:hover .hotspot-cue {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Slide 18 Hotspot Coordinates */
+    #hotspot-whatsapp {
+      left: 11.5%;
+      top: 38.0%;
+      width: 28%;
+      height: 12%;
+    }
+
+    #hotspot-email {
+      left: 11.5%;
+      top: 53.0%;
+      width: 28%;
+      height: 12%;
+    }
+
+    #hotspot-social {
+      left: 11.5%;
+      top: 70.0%;
+      width: 28%;
+      height: 12%;
+    }
+
+    /* ==========================================================================
+       SIDE DOT NAVIGATION
+       ========================================================================== */
+    .side-nav-dots {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      z-index: 1000;
+      padding: 12px 6px;
+      background: rgba(14, 14, 18, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 30px;
+    }
+
+    .dot-btn {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .dot-btn:hover {
+      background: var(--gold);
+      transform: scale(1.4);
+    }
+
+    .dot-btn.active {
+      background: var(--gold);
+      height: 22px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+
+    /* Tooltip */
+    .dot-btn .tooltip {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%) scale(0.9);
+      background: rgba(10, 10, 14, 0.95);
+      border: 1px solid var(--glass-border);
+      color: #FFF;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .dot-btn:hover .tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-50%) scale(1);
+    }
+
+    /* ==========================================================================
+       FLOATING CONTROLS (NEXT / PREV / KEYBOARD HINTS)
+       ========================================================================== */
+    .floating-controls {
+      position: fixed;
+      bottom: 24px;
+      right: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1000;
+    }
+
+    .arrow-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .arrow-btn:hover {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+      box-shadow: 0 6px 18px var(--gold-glow);
+      transform: translateY(-2px);
+    }
+
+    .arrow-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .arrow-btn:disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* WhatsApp Quick Connect Pill */
+    .wa-float-btn {
+      position: fixed;
+      bottom: 24px;
+      left: 28px;
+      background: #25D366;
+      color: #FFF;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+      z-index: 1000;
+      transition: all 0.25s ease;
+    }
+
+    .wa-float-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.6);
+      color: #FFF;
+    }
+
+    .wa-float-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* ==========================================================================
+       SLIDE GRID OVERVIEW MODAL / DRAWER
+       ========================================================================== */
+    .grid-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 4, 6, 0.92);
+      backdrop-filter: blur(20px);
+      z-index: 3000;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .grid-modal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .grid-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px clamp(1rem, 4vw, 3rem);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .grid-modal-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .grid-modal-title span.count {
+      font-size: 0.8rem;
+      background: var(--gold);
+      color: #000;
+      padding: 3px 9px;
+      border-radius: 12px;
+      font-weight: 800;
+    }
+
+    .grid-close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFF;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .grid-close-btn:hover {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+    }
+
+    .grid-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 30px clamp(1rem, 4vw, 3rem);
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    .grid-card {
+      background: rgba(20, 20, 26, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .grid-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-5px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--gold-glow);
+    }
+
+    .grid-card.active-card {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 2px var(--gold);
+    }
+
+    .grid-card-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .grid-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .grid-card-info {
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .grid-card-num {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--gold);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .grid-card-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #FFF;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE ADJUSTMENTS
+       ========================================================================== */
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+      .side-nav-dots {
+        display: none;
+      }
+      .slide-section {
+        padding: calc(var(--nav-height) + 8px) 12px 16px;
+      }
+      .slide-canvas {
+        border-radius: 8px;
+        max-width: 100vw;
+      }
+      .wa-float-btn span {
+        display: none;
+      }
+      .wa-float-btn {
+        padding: 12px;
+        border-radius: 50%;
+        bottom: 20px;
+        left: 20px;
+      }
+      .floating-controls {
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+
+    /* ==========================================================================
+       PORTRAIT ROTATE OVERLAY
+       ========================================================================== */
+    #rotate-prompt {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: radial-gradient(ellipse at center, #0d0d12 0%, #000000 100%);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      text-align: center;
+      padding: 32px;
+    }
+
+    #rotate-prompt.visible { display: flex; }
+
+    .rotate-icon-wrap {
+      width: 90px;
+      height: 90px;
+      background: rgba(255,168,0,0.1);
+      border: 2px solid var(--gold);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(255,168,0,0.4);
+      animation: rotateWiggle 2s ease-in-out infinite;
+    }
+    .rotate-icon-wrap svg { width: 48px; height: 48px; fill: var(--gold); }
+
+    @keyframes rotateWiggle {
+      0%,100% { transform: rotate(0deg) scale(1); }
+      30%      { transform: rotate(-28deg) scale(1.08); }
+      60%      { transform: rotate(-28deg) scale(1.08); }
+    }
+
+    .rotate-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem,5vw,1.9rem);
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .rotate-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 290px;
+    }
+    .rotate-dismiss-btn {
+      margin-top: 4px;
+      background: transparent;
+      border: 1.5px solid rgba(255,168,0,0.4);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 9px 24px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .rotate-dismiss-btn:hover {
+      background: rgba(255,168,0,0.12);
+      border-color: var(--gold);
+      color: #fff;
+    }
+
+    /* Only show on small portrait screens (width < height and small device) */
+    /* On larger screens only show the fullscreen tip, not the rotate card */
+    @media (min-width: 640px) {
+      #rotate-prompt { display: none !important; }
+    }
+    @media (orientation: landscape) {
+      #rotate-prompt { display: none !important; }
+    }
+
+    /* -----------------------------------------------------------------------
+       FULLSCREEN TIP OVERLAY (desktop / landscape startup hint)
+       ----------------------------------------------------------------------- */
+    #fs-tip-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 8900;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      animation: fadeInOverlay 0.4s ease;
+    }
+    #fs-tip-overlay.visible { display: flex; }
+
+    @keyframes fadeInOverlay {
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .fs-tip-card {
+      background: linear-gradient(145deg, #111116, #0b0b0f);
+      border: 1px solid rgba(255,168,0,0.3);
+      border-radius: 22px;
+      padding: clamp(28px, 5vw, 48px) clamp(24px, 5vw, 52px);
+      max-width: 460px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,168,0,0.12), 0 0 50px rgba(255,168,0,0.08);
+      position: relative;
+    }
+
+    .fs-tip-top-badge {
+      background: var(--gold);
+      color: #000;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      padding: 4px 14px;
+      border-radius: 30px;
+      text-transform: uppercase;
+    }
+
+    .fs-tip-icons-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .fs-tip-icon-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fs-tip-icon-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fs-tip-icon-circle.gold-ring {
+      background: rgba(255,168,0,0.12);
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 22px rgba(255,168,0,0.35);
+      animation: pulseGlow 2.2s ease-in-out infinite;
+    }
+    .fs-tip-icon-circle.subtle {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,255,255,0.15);
+      animation: rotateWiggle 2s ease-in-out infinite;
+    }
+    .fs-tip-icon-circle svg {
+      fill: currentColor;
+      width: 36px;
+      height: 36px;
+    }
+    .fs-tip-icon-circle.gold-ring svg { color: var(--gold); }
+    .fs-tip-icon-circle.subtle svg    { color: rgba(255,255,255,0.7); }
+
+    @keyframes pulseGlow {
+      0%,100% { box-shadow: 0 0 18px rgba(255,168,0,0.3); }
+      50%      { box-shadow: 0 0 36px rgba(255,168,0,0.7); }
+    }
+
+    .fs-tip-divider {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .fs-tip-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .fs-tip-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 3vw, 1.65rem);
+      letter-spacing: 0.03em;
+      color: var(--white);
+      line-height: 1.25;
+    }
+    .fs-tip-heading span { color: var(--gold); }
+
+    .fs-tip-sub {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 340px;
+    }
+
+    .fs-tip-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      align-items: center;
+    }
+
+    .fs-tip-primary-btn {
+      background: linear-gradient(135deg, var(--gold), #CC8800);
+      color: #000;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 800;
+      padding: 13px 32px;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      letter-spacing: 0.04em;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 20px rgba(255,168,0,0.4);
+    }
+    .fs-tip-primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(255,168,0,0.6);
+    }
+    .fs-tip-primary-btn svg { width: 18px; height: 18px; fill: #000; }
+
+    .fs-tip-skip-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.35);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 6px;
+      transition: color 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .fs-tip-skip-btn:hover { color: rgba(255,255,255,0.75); }
+
+    /* Hide fullscreen tip on very small screens (rotate prompt handles those) */
+    @media (max-width: 639px) {
+      #fs-tip-overlay { display: none !important; }
+    }
+
+    /* ==========================================================================
+       FULLSCREEN MODE — HIDE ALL UI CHROME
+       ========================================================================== */
+    body.is-fullscreen #progress-bar,
+    body.is-fullscreen .top-nav,
+    body.is-fullscreen .side-nav-dots,
+    body.is-fullscreen .floating-controls,
+    body.is-fullscreen .wa-float-btn {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    body.is-fullscreen .slide-section {
+      padding: 0;
+    }
+    body.is-fullscreen .slide-canvas {
+      max-width: 100vw;
+      max-height: 100vh;
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- FULLSCREEN TIP OVERLAY (desktop startup) -->
+  <div id="fs-tip-overlay" role="dialog" aria-label="Fullscreen tip">
+    <div class="fs-tip-card">
+      <div class="fs-tip-top-badge">&#10024; Best Experience Tip</div>
+
+      <div class="fs-tip-icons-row">
+        <!-- Fullscreen icon -->
+        <div class="fs-tip-icon-box">
+          <div class="fs-tip-icon-circle gold-ring">
+            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+          </div>
+          <span class="fs-tip-label">FULLSCREEN</span>
+        </div>
+
+        <div class="fs-tip-divider">+</div>
+
+        <!-- Rotate / landscape icon -->
+        <div class="fs-tip-icon-box">
+          <div class="fs-tip-icon-circle subtle">
+            <svg viewBox="0 0 24 24"><path d="M16.48 2.52c3.27 1.55 5.61 4.72 5.97 8.48h1.5C23.44 4.84 20.29 1.2 16.07.01L16.48 2.52zM10.95.01C6.73 1.2 3.56 4.84 3.05 11h1.5c.45-3.77 2.8-6.93 6.07-8.48L10.95.01zM16 16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h8zm-4 4c-1.1 0-2-.9-2-2h4c0 1.1-.9 2-2 2zM8 14V4h8v10H8zM7.52 21.48C4.25 19.93 1.91 16.76 1.55 13H.05C.56 19.16 3.71 22.8 7.93 23.99L7.52 21.48zm8.53 2.51c4.22-1.19 7.37-4.83 7.88-11h-1.5c-.44 3.77-2.78 6.93-6.05 8.48l1.67 2.52z"/></svg>
+          </div>
+          <span class="fs-tip-label">LANDSCAPE</span>
+        </div>
+      </div>
+
+      <div class="fs-tip-heading">For the <span>Best Experience</span></div>
+      <div class="fs-tip-sub">Click the fullscreen button &amp; hold your device in <strong style="color:#FFF">landscape mode</strong> to view this portfolio exactly like a presentation.</div>
+
+      <div class="fs-tip-actions">
+        <button class="fs-tip-primary-btn" onclick="enterFullscreenFromTip()">
+          <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+          Enter Fullscreen Mode
+        </button>
+        <button class="fs-tip-skip-btn" onclick="closeFsTip()">Skip &mdash; Browse normally</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTRAIT ROTATE PROMPT -->
+  <div id="rotate-prompt" role="dialog" aria-label="Rotate your screen">
+    <div class="rotate-icon-wrap">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16.48 2.52c3.27 1.55 5.61 4.72 5.97 8.48h1.5C23.44 4.84 20.29 1.2 16.07.01L16.48 2.52zM10.95.01C6.73 1.2 3.56 4.84 3.05 11h1.5c.45-3.77 2.8-6.93 6.07-8.48L10.95.01zM16 16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h8zm-4 4c-1.1 0-2-.9-2-2h4c0 1.1-.9 2-2 2zM8 14V4h8v10H8zM7.52 21.48C4.25 19.93 1.91 16.76 1.55 13H.05C.56 19.16 3.71 22.8 7.93 23.99L7.52 21.48zm8.53 2.51c4.22-1.19 7.37-4.83 7.88-11h-1.5c-.44 3.77-2.78 6.93-6.05 8.48l1.67 2.52z"/>
+      </svg>
+    </div>
+    <div class="rotate-title">Rotate Your Screen</div>
+    <div class="rotate-subtitle">For the best slide experience, hold your device in <strong style="color:#FFF">landscape mode</strong>.</div>
+    <button class="rotate-dismiss-btn" onclick="dismissRotatePrompt()">View Anyway &rarr;</button>
+  </div>
+
+  <!-- Top Progress Bar -->
+  <div id="progress-bar"></div>
+
+  <!-- Header Navigation -->
+  <header class="top-nav">
+    <a href="#slide-1" class="nav-brand" onclick="goToSlide(1); return false;">
+      <div class="brand-badge">KK</div>
+      <div class="brand-meta">
+        <span class="brand-title">KANNAIAH (KK)</span>
+        <span class="brand-subtitle">Digital Portfolio</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li class="nav-link-item"><a href="#slide-1" class="active" onclick="goToSlide(1); return false;">Home</a></li>
+      <li class="nav-link-item"><a href="#slide-2" onclick="goToSlide(2); return false;">About</a></li>
+      <li class="nav-link-item"><a href="#slide-4" onclick="goToSlide(4); return false;">Skills</a></li>
+      <li class="nav-link-item"><a href="#slide-5" onclick="goToSlide(5); return false;">Startup Apps</a></li>
+      <li class="nav-link-item"><a href="#slide-7" onclick="goToSlide(7); return false;">Presentations</a></li>
+      <li class="nav-link-item"><a href="#slide-12" onclick="goToSlide(12); return false;">Sheets & Docs</a></li>
+      <li class="nav-link-item"><a href="#slide-16" onclick="goToSlide(16); return false;">Video Editing</a></li>
+      <li class="nav-link-item"><a href="#slide-18" onclick="goToSlide(18); return false;">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="slide-counter-badge">
+        <span class="curr" id="curr-slide-num">01</span>
+        <span style="opacity:0.4;">/</span>
+        <span class="total">18</span>
+      </div>
+
+      <button class="nav-btn" onclick="openGridModal()" title="View All Slides (G)">
+        <svg viewBox="0 0 24 24"><path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"/></svg>
+        <span>Slides</span>
+      </button>
+
+      <button class="nav-btn" id="fs-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen (F)">
+        <svg viewBox="0 0 24 24" id="fs-icon"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Side Dot Navigation -->
+  <aside class="side-nav-dots" id="side-dots">
+    <!-- Populated by JavaScript -->
+  </aside>
+
+  <!-- Floating Navigation Controls -->
+  <div class="floating-controls">
+    <button class="arrow-btn" id="prev-btn" onclick="prevSlide()" title="Previous Slide (Up Arrow / PageUp)">
+      <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+    </button>
+    <button class="arrow-btn" id="next-btn" onclick="nextSlide()" title="Next Slide (Down Arrow / PageDown / Space)">
+      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </button>
+  </div>
+
+  <!-- WhatsApp Floating Action -->
+  <a href="https://wa.me/918977655780" target="_blank" rel="noopener noreferrer" class="wa-float-btn" title="Chat on WhatsApp (+91 8977655780)">
+    <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.11 7.44C8.94 7.44 8.68 7.5 8.46 7.74C8.24 7.97 7.63 8.55 7.63 9.72C7.63 10.9 8.49 12.03 8.61 12.19C8.73 12.35 10.3 14.78 12.72 15.82C13.29 16.07 13.74 16.22 14.09 16.33C14.68 16.52 15.22 16.5 15.65 16.43C16.13 16.36 17.13 15.83 17.34 15.24C17.55 14.65 17.55 14.15 17.49 14.04C17.43 13.94 17.27 13.88 17.02 13.76C16.78 13.63 15.56 13.03 15.34 12.95C15.11 12.86 14.95 12.82 14.78 13.07C14.62 13.31 14.15 13.88 14.01 14.04C13.87 14.21 13.73 14.23 13.49 14.11C13.24 13.99 12.45 13.73 11.52 12.9C10.79 12.25 10.3 11.45 10.15 11.2C10.01 10.95 10.14 10.82 10.26 10.7C10.37 10.59 10.51 10.41 10.63 10.27C10.75 10.13 10.8 10.03 10.88 9.86C10.96 9.7 10.92 9.55 10.86 9.43C10.8 9.31 10.33 8.16 10.13 7.68C9.94 7.21 9.74 7.27 9.59 7.26C9.45 7.26 9.28 7.25 9.11 7.25L9.11 7.44Z"/></svg>
+    <span>Chat with KK</span>
+  </a>
+
+  <!-- ==========================================================================
+       MAIN SCROLL CONTAINER WITH ALL 18 ACCURATE SLIDES
+       ========================================================================== -->
+  <main id="slides-wrapper">
+
+    <!-- SLIDE 01: COVER -->
+    <section class="slide-section" id="slide-1" data-index="1" data-title="Portfolio Cover">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_01.png" alt="Slide 1 - Portfolio Cover (Presented By: KK)" loading="eager" />
+        <div class="slide-canvas-tag">Slide 01</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 02: ABOUT ME -->
+    <section class="slide-section" id="slide-2" data-index="2" data-title="About Me & Background">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_02.png" alt="Slide 2 - About Me" loading="eager" />
+        <div class="slide-canvas-tag">Slide 02</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 03: PROFILE & SERVICES -->
+    <section class="slide-section" id="slide-3" data-index="3" data-title="Profile & Overview">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_03.png" alt="Slide 3 - Profile Overview" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 03</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 04: CORE SKILLS & EXPERTISE -->
+    <section class="slide-section" id="slide-4" data-index="4" data-title="Skills & Expertise">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_04.png" alt="Slide 4 - Slide Designing & Office Skills" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 04</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 05: STARTUP WEBSITE & APPS (WITH 2 PLAYABLE VIDEOS) -->
+    <section class="slide-section" id="slide-5" data-index="5" data-title="Startup Apps & AI Tools (Interactive)">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_05.png" alt="Slide 5 - Build Website & Apps for a Startup using AI Tools" loading="lazy" />
+        
+        <!-- Video 1: Mobile App Demo (Left 3.38%, Top 18.38%, Width 20.65%, Height 71.62%) -->
+        <div class="video-overlay-wrap" id="s5-v1" data-yt-id="EMv1WadGTCs" title="Click to Play Mobile App Demo">
+          <div class="video-title-pill"><span class="dot"></span> Mobile App Demo</div>
+          <div class="video-play-badge">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <img class="yt-thumb" loading="lazy" src="https://i.ytimg.com/vi/EMv1WadGTCs/hqdefault.jpg" alt="Mobile App Demo thumbnail">
+        </div>
+
+        <!-- Video 2: Web Dashboard Demo (Left 27.01%, Top 21.07%, Width 69.8%, Height 57.86%) -->
+        <div class="video-overlay-wrap" id="s5-v2" data-yt-id="BMN3F5xeTW4" title="Click to Play Web Platform Demo">
+          <div class="video-title-pill"><span class="dot"></span> Web Platform Demo</div>
+          <div class="video-play-badge">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <img class="yt-thumb" loading="lazy" src="https://i.ytimg.com/vi/BMN3F5xeTW4/hqdefault.jpg" alt="Web Platform Demo thumbnail">
+        </div>
+
+        <div class="slide-canvas-tag">Slide 05 â€¢ Interactive Demos</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 06: STARTUP VIDEO PRODUCTION (WITH PLAYABLE VIDEO) -->
+    <section class="slide-section" id="slide-6" data-index="6" data-title="Startup Video Production (Interactive)">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_06.png" alt="Slide 6 - Build Advertising Video for Startup" loading="lazy" />
+
+        <!-- Video: Startup Video (Left 9.73%, Top 20.73%, Width 76.47%, Height 76.47%) -->
+        <div class="video-overlay-wrap" id="s6-v1" data-yt-id="5zgyDKHUYsY" title="Click to Play Advertising Video Demo">
+          <div class="video-title-pill"><span class="dot"></span> Advertising Video Showcase</div>
+          <div class="video-play-badge">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <img class="yt-thumb" loading="lazy" src="https://i.ytimg.com/vi/5zgyDKHUYsY/hqdefault.jpg" alt="Advertising Video Showcase thumbnail">
+        </div>
+
+        <div class="slide-canvas-tag">Slide 06 â€¢ Interactive Video</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 07: EDUCATIONAL PRESENTATIONS -->
+    <section class="slide-section" id="slide-7" data-index="7" data-title="Educational Slide Design">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_07.png" alt="Slide 7 - Educational PowerPoint Presentations" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 07</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 08: PROJECT PORTFOLIO (+AI) -->
+    <section class="slide-section" id="slide-8" data-index="8" data-title="AI Presentation Portfolio">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_08.png" alt="Slide 8 - Project Portfolio +AI" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 08</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 09: TEACHER LESSONS CASE STUDY -->
+    <section class="slide-section" id="slide-9" data-index="9" data-title="Teaching Delivery Case Study">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_09.png" alt="Slide 9 - Helped Teachers Deliver Lessons Easily" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 09</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: SAVED PREPARATION TIME -->
+    <section class="slide-section" id="slide-10" data-index="10" data-title="Efficiency & Time Savings">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_10.png" alt="Slide 10 - Saved Preparation Time" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 10</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: VISUAL RETENTION -->
+    <section class="slide-section" id="slide-11" data-index="11" data-title="Visual Impact & Retention">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_11.png" alt="Slide 11 - Visual Learning & Retention" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 11</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: GOOGLE SHEETS & EXCEL -->
+    <section class="slide-section" id="slide-12" data-index="12" data-title="Sheets & Automation Projects">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_12.png" alt="Slide 12 - Sheets Projects & Automation" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 12</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: PROJECT DASHBOARDS -->
+    <section class="slide-section" id="slide-13" data-index="13" data-title="Dashboard & Tracking">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_13.png" alt="Slide 13 - Project Dashboards & Performance Tracking" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 13</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: FORMS & DOCS DESIGN -->
+    <section class="slide-section" id="slide-14" data-index="14" data-title="Forms & Word Documents">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_14.png" alt="Slide 14 - Word and Form Document Systems" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 14</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: VISUAL CONTENT DESIGN -->
+    <section class="slide-section" id="slide-15" data-index="15" data-title="Visual Media Design">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_15.png" alt="Slide 15 - Video Visuals & Creative Design" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 15</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: VIDEO EDITING (WITH PLAYABLE VIDEO) -->
+    <section class="slide-section" id="slide-16" data-index="16" data-title="Video Editing Showcase (Interactive)">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_16.png" alt="Slide 16 - Video Editing Showcase" loading="lazy" />
+
+        <!-- Video: Editing Reel (Left 12.7%, Top 20.17%, Width 73.56%, Height 72.96%) -->
+        <div class="video-overlay-wrap" id="s16-v1" data-yt-id="9y54LMYuGfQ" title="Click to Play Video Editing Demo">
+          <div class="video-title-pill"><span class="dot"></span> CapCut & Premiere Editing Reel</div>
+          <div class="video-play-badge">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <img class="yt-thumb" loading="lazy" src="https://i.ytimg.com/vi/9y54LMYuGfQ/hqdefault.jpg" alt="CapCut &amp; Premiere Editing Reel thumbnail">
+        </div>
+
+        <div class="slide-canvas-tag">Slide 16 â€¢ Interactive Video</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: FULL VISUAL SHOWCASE -->
+    <section class="slide-section" id="slide-17" data-index="17" data-title="Creative Media Showcase">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_17.png" alt="Slide 17 - Creative Media Background" loading="lazy" />
+        <div class="slide-canvas-tag">Slide 17</div>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: CONTACT WITH INTERACTIVE HOTSPOTS -->
+    <section class="slide-section" id="slide-18" data-index="18" data-title="Get In Touch / Contact">
+      <div class="slide-canvas">
+        <img class="slide-img" src="slides/slide_18.png" alt="Slide 18 - Contact Kannaiah (KK)" loading="lazy" />
+
+        <!-- Hotspot: WhatsApp -->
+        <a class="contact-hotspot" id="hotspot-whatsapp" href="https://wa.me/918977655780" target="_blank" rel="noopener noreferrer" title="Click to Chat on WhatsApp (+91 8977655780)">
+          <span class="hotspot-cue">OPEN WHATSAPP â†’</span>
+        </a>
+
+        <!-- Hotspot: Email -->
+        <a class="contact-hotspot" id="hotspot-email" href="mailto:kannaiah094@gmail.com" title="Click to send Email (kannaiah094@gmail.com)">
+          <span class="hotspot-cue">SEND EMAIL â†’</span>
+        </a>
+
+        <!-- Hotspot: Website / Social -->
+        <a class="contact-hotspot" id="hotspot-social" href="https://kannaiah.digital" target="_blank" rel="noopener noreferrer" title="Visit kannaiah.digital">
+          <span class="hotspot-cue">VISIT WEBSITE â†’</span>
+        </a>
+
+        <div class="slide-canvas-tag">Slide 18 â€¢ Interactive Contact</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       ALL SLIDES OVERVIEW GRID MODAL
+       ========================================================================== -->
+  <div class="grid-modal" id="grid-modal">
+    <div class="grid-modal-header">
+      <div class="grid-modal-title">
+        <span>Portfolio Slide Overview</span>
+        <span class="count">18 Slides</span>
+      </div>
+      <button class="grid-close-btn" onclick="closeGridModal()" title="Close (Esc)">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+    <div class="grid-modal-body" id="grid-container">
+      <!-- Populated dynamically via JavaScript -->
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       JAVASCRIPT: CONTROLS, SCROLL-SPY, INTERSECTION OBSERVER, VIDEO MANAGEMENT
+       ========================================================================== -->
+  <script>
+    const TOTAL_SLIDES = 18;
+    let currentSlide = 1;
+    const wrapper = document.getElementById('slides-wrapper');
+    const sections = Array.from(document.querySelectorAll('.slide-section'));
+    const progressBar = document.getElementById('progress-bar');
+    const currSlideNumEl = document.getElementById('curr-slide-num');
+    const sideDotsContainer = document.getElementById('side-dots');
+    const gridContainer = document.getElementById('grid-container');
+    const gridModal = document.getElementById('grid-modal');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    // Slide Titles dictionary for tooltips and grid
+    const slideTitles = {
+      1: "Portfolio Cover",
+      2: "About Me",
+      3: "Creative Overview",
+      4: "Skills & Services",
+      5: "Startup Apps & AI Tools",
+      6: "Startup Video Production",
+      7: "Educational Presentations",
+      8: "Presentation Portfolio (+AI)",
+      9: "Teacher Lessons Case Study",
+      10: "Saved Preparation Time",
+      11: "Visual Learning & Retention",
+      12: "Sheets & Automation",
+      13: "Project Dashboards",
+      14: "Forms & Word Docs",
+      15: "Visual Media Designs",
+      16: "Video Editing Showcase",
+      17: "Visual Production",
+      18: "Contact & Connect"
+    };
+
+    // Category mapping for Top Nav highlight
+    function getNavIndexForSlide(n) {
+      if (n === 1) return 1;
+      if (n === 2 || n === 3) return 2;
+      if (n === 4) return 4;
+      if (n === 5 || n === 6) return 5;
+      if (n >= 7 && n <= 11) return 7;
+      if (n >= 12 && n <= 14) return 12;
+      if (n === 15 || n === 16 || n === 17) return 16;
+      if (n === 18) return 18;
+      return 1;
+    }
+
+    // 1. Build Side Dots & Grid Modal
+    function initNavigationUI() {
+      // Side dots
+      sections.forEach((sec, idx) => {
+        const slideNum = idx + 1;
+        const dot = document.createElement('button');
+        dot.className = `dot-btn ${slideNum === 1 ? 'active' : ''}`;
+        dot.id = `dot-${slideNum}`;
+        dot.setAttribute('aria-label', `Go to slide ${slideNum}: ${slideTitles[slideNum]}`);
+        dot.innerHTML = `<span class="tooltip">${String(slideNum).padStart(2, '0')}. ${slideTitles[slideNum]}</span>`;
+        dot.addEventListener('click', () => goToSlide(slideNum));
+        sideDotsContainer.appendChild(dot);
+      });
+
+      // Grid items
+      for (let i = 1; i <= TOTAL_SLIDES; i++) {
+        const card = document.createElement('div');
+        card.className = `grid-card ${i === 1 ? 'active-card' : ''}`;
+        card.id = `grid-card-${i}`;
+        const numStr = String(i).padStart(2, '0');
+        card.innerHTML = `
+          <div class="grid-card-thumb">
+            <img src="slides/slide_${numStr}.png" alt="Slide ${i}" loading="lazy" />
+          </div>
+          <div class="grid-card-info">
+            <span class="grid-card-num">#${numStr}</span>
+            <span class="grid-card-name">${slideTitles[i]}</span>
+          </div>
+        `;
+        card.addEventListener('click', () => {
+          closeGridModal();
+          goToSlide(i);
+        });
+        gridContainer.appendChild(card);
+      }
+    }
+
+    // 2. Navigation Logic
+    function goToSlide(n) {
+      if (n < 1) n = 1;
+      if (n > TOTAL_SLIDES) n = TOTAL_SLIDES;
+      const targetSec = document.getElementById(`slide-${n}`);
+      if (targetSec) {
+        targetSec.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        goToSlide(currentSlide - 1);
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < TOTAL_SLIDES) {
+        goToSlide(currentSlide + 1);
+      }
+    }
+
+    function updateActiveState(slideNum) {
+      currentSlide = slideNum;
+      currSlideNumEl.textContent = String(slideNum).padStart(2, '0');
+
+      // Update Nav buttons
+      prevBtn.disabled = (slideNum === 1);
+      nextBtn.disabled = (slideNum === TOTAL_SLIDES);
+
+      // Update side dots
+      document.querySelectorAll('.dot-btn').forEach(d => d.classList.remove('active'));
+      const activeDot = document.getElementById(`dot-${slideNum}`);
+      if (activeDot) activeDot.classList.add('active');
+
+      // Update Top Nav links
+      const navTargetSlide = getNavIndexForSlide(slideNum);
+      document.querySelectorAll('.nav-link-item a').forEach(a => {
+        const href = a.getAttribute('href');
+        if (href === `#slide-${navTargetSlide}`) {
+          a.classList.add('active');
+        } else {
+          a.classList.remove('active');
+        }
+      });
+
+      // Update Grid Cards
+      document.querySelectorAll('.grid-card').forEach(c => c.classList.remove('active-card'));
+      const activeCard = document.getElementById(`grid-card-${slideNum}`);
+      if (activeCard) activeCard.classList.add('active-card');
+    }
+
+    // 3. Intersection Observer for Slides & Auto-Unload YouTube Embeds
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = parseInt(entry.target.getAttribute('data-index'), 10);
+          updateActiveState(index);
+        } else {
+          // If a section scrolls out of view, unload any active YouTube iframe inside it
+          entry.target.querySelectorAll('.video-overlay-wrap.playing').forEach(wrap => {
+            unloadYTEmbed(wrap);
+          });
+        }
+      });
+    }, {
+      root: wrapper,
+      threshold: 0.55 // When slide is >55% visible
+    });
+
+    sections.forEach(sec => observer.observe(sec));
+
+    // 4. Scroll Progress Bar
+    wrapper.addEventListener('scroll', () => {
+      const scrollMax = wrapper.scrollHeight - wrapper.clientHeight;
+      if (scrollMax > 0) {
+        const pct = (wrapper.scrollTop / scrollMax) * 100;
+        progressBar.style.width = pct + '%';
+      }
+    }, { passive: true });
+
+    // 5. YouTube Click-to-Play Embed Logic
+
+    // Unload a playing YouTube iframe and restore the thumbnail + play badge
+    function unloadYTEmbed(wrap) {
+      const iframe = wrap.querySelector('iframe');
+      if (iframe) iframe.remove();
+      const thumb = wrap.querySelector('.yt-thumb');
+      if (thumb) thumb.style.display = '';
+      const badge = wrap.querySelector('.video-play-badge');
+      if (badge) badge.style.display = '';
+      wrap.classList.remove('playing');
+    }
+
+    // Load a YouTube iframe into the wrap and hide the thumbnail
+    function loadYTEmbed(wrap) {
+      const ytId = wrap.dataset.ytId;
+      if (!ytId) return;
+
+      // Unload any other currently-playing embed first
+      document.querySelectorAll('.video-overlay-wrap.playing').forEach(other => {
+        if (other !== wrap) unloadYTEmbed(other);
+      });
+
+      // Hide thumbnail and badge
+      const thumb = wrap.querySelector('.yt-thumb');
+      if (thumb) thumb.style.display = 'none';
+      const badge = wrap.querySelector('.video-play-badge');
+      if (badge) badge.style.display = 'none';
+
+      // Create and append the iframe
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.setAttribute('frameborder', '0');
+      iframe.style.cssText = 'width:100%;height:100%;border:0;display:block;';
+      wrap.appendChild(iframe);
+      wrap.classList.add('playing');
+    }
+
+    document.querySelectorAll('.video-overlay-wrap').forEach(wrap => {
+      wrap.addEventListener('click', () => {
+        // If already playing, clicking acts as a toggle — unload
+        if (wrap.classList.contains('playing')) {
+          unloadYTEmbed(wrap);
+        } else {
+          loadYTEmbed(wrap);
+        }
+      });
+    });
+
+    // 6. Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      // Don't trigger if typing in an input
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+
+      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(TOTAL_SLIDES);
+      } else if (e.key.toLowerCase() === 'g') {
+        toggleGridModal();
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      } else if (e.key === 'Escape') {
+        closeGridModal();
+      }
+    });
+
+    // 7. Grid Modal Controls
+    function openGridModal() {
+      gridModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGridModal() {
+      gridModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function toggleGridModal() {
+      if (gridModal.classList.contains('open')) {
+        closeGridModal();
+      } else {
+        openGridModal();
+      }
+    }
+
+    // 8. Fullscreen Toggle
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+      const fsIcon = document.getElementById('fs-icon');
+      if (document.fullscreenElement) {
+        // Entered fullscreen — hide all chrome
+        document.body.classList.add('is-fullscreen');
+        fsIcon.innerHTML = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>';
+      } else {
+        // Exited fullscreen — restore all chrome
+        document.body.classList.remove('is-fullscreen');
+        fsIcon.innerHTML = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
+      }
+    });
+
+    // 9. Portrait Rotate Prompt Logic
+    const rotatePrompt = document.getElementById('rotate-prompt');
+    let rotateDismissed = false;
+
+    function checkOrientation() {
+      if (rotateDismissed) return;
+      const isPortrait = window.innerHeight > window.innerWidth;
+      const isSmallScreen = window.innerWidth < 640;
+      if (isPortrait && isSmallScreen) {
+        rotatePrompt.classList.add('visible');
+      } else {
+        rotatePrompt.classList.remove('visible');
+      }
+    }
+
+    function dismissRotatePrompt() {
+      rotateDismissed = true;
+      rotatePrompt.classList.remove('visible');
+    }
+
+    window.addEventListener('resize', checkOrientation, { passive: true });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(checkOrientation, 200); // small delay for orientation to settle
+    }, { passive: true });
+    checkOrientation(); // run on load
+
+    // 10. Fullscreen Tip Overlay (desktop startup)
+    const fsTipOverlay = document.getElementById('fs-tip-overlay');
+
+    function showFsTip() {
+      // Only show on screens >= 640px (not mobile — rotate handles those)
+      if (window.innerWidth >= 640) {
+        fsTipOverlay.classList.add('visible');
+      }
+    }
+
+    function closeFsTip() {
+      fsTipOverlay.classList.remove('visible');
+    }
+
+    function enterFullscreenFromTip() {
+      closeFsTip();
+      // Small delay so the overlay fades before fullscreen kicks in
+      setTimeout(() => {
+        document.documentElement.requestFullscreen().catch(() => {});
+      }, 250);
+    }
+
+    // Show tip on first load after a short delay
+    setTimeout(showFsTip, 900);
+
+    // Initialize UI on DOM ready
+    initNavigationUI();
+    updateActiveState(1);
+  </script>
+</body>
+</html>
